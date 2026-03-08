@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Government Identity Verification</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+margin:0;
+}
+
+header{
+background:#0b3d91;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+.container{
+width:350px;
+margin:auto;
+margin-top:60px;
+background:white;
+padding:25px;
+border-radius:8px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:10px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:15px;
+background:#0b3d91;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+#spinner{
+display:none;
+margin-top:15px;
+text-align:center;
+}
+
+#result{
+margin-top:10px;
+text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>National Identity Verification Portal</h2>
+<p>Secure Government Authentication Service</p>
+</header>
+
+<div class="container">
+
+<h3>Citizen Verification</h3>
+
+<input id="uid" placeholder="Enter UID">
+
+<input id="fingerprint" placeholder="Fingerprint Code">
+
+<button onclick="verify()">Verify Identity</button>
+
+<div id="spinner">Verifying identity...</div>
+
+<p id="result"></p>
+
+</div>
+
+<script>
+
+function verify(){
+
+document.getElementById("spinner").style.display="block";
+document.getElementById("result").innerText="";
+
+fetch("http://127.0.0.1:5000/verify-user",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+user_id:document.getElementById("uid").value,
+fingerprint:document.getElementById("fingerprint").value
+})
+
+})
+
+.then(r=>r.json())
+
+.then(data=>{
+
+document.getElementById("spinner").style.display="none";
+
+if(data.status==="verified"){
+
+window.opener.sessionStorage.setItem("verified","true");
+window.opener.location.href="dashboard.html";
+window.close();
+
+}else{
+
+document.getElementById("result").style.color="red";
+document.getElementById("result").innerText =
+data.message || "Verification failed";
+
+}
+
+})
+
+.catch(()=>{
+
+document.getElementById("spinner").style.display="none";
+
+document.getElementById("result").style.color="red";
+document.getElementById("result").innerText="Server error";
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
