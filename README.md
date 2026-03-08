@@ -78,7 +78,7 @@ identity-age-verification-system
 --
 
 ## Screenshots
-![Login Portal](screenshots/login.png)
-![gov verification Portal(passed)](screenshots/index1.png)
-![gov verification Portal(failed)](screenshots/index2.png)
-![dashboard](screenshots/dashboard.png)
+![Login Portal](login.png)
+![gov verification Portal(passed)](index1.png)
+![gov verification Portal(failed)](index2.png)
+![dashboard](dashboard.png)
