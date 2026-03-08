@@ -18,4 +18,6 @@ This project demonstrates a prototype system for verifying user age before grant
 ## Architecture
 The application separates the social media platform from the identity verification portal. The system verifies age through a backend service and only returns a verification status to the application.
 
+## Screenshots
+![Login Page](screenshots/login.png)
 
